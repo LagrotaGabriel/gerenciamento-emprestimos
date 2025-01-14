@@ -1,0 +1,42 @@
+services:
+
+  postgres:
+    image: postgres:15
+    container_name: postgres-credor
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: emprestimos-credor
+    ports:
+      - "5433:5432"
+#    volumes:
+#      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - credor-network
+
+  emprestimos-credor:
+    image: gabriellagrota/credor-service
+    restart: always
+    build: ./
+    working_dir: /
+    environment:
+      TZ: America/Sao_Paulo
+      DB_URL: postgresql://postgres:5432/emprestimos-credor
+      DB_USERNAME: postgres
+      DB_PASSWORD: root
+    ports:
+      - "8081:8081"
+    command: mvn spring-boot:run
+    depends_on:
+      - postgres
+    networks:
+      - credor-network
+
+networks:
+  credor-network:
+    driver: bridge
+
+#volumes:
+#  postgres_data:
+#    driver: local
