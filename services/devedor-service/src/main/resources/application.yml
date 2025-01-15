@@ -1,0 +1,37 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: devedor-service
+
+  # Configuracoes de banco de dados
+  jpa:
+  datasource:
+    url: jdbc:${DB_URL}?useTimezone=true&serverTimezone=UTC&useSSL=false
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      connection-timeout: 30000
+      minimum-idle: 10
+      maximum-pool-size: 10
+      idle-timeout: 600000
+      max-lifetime: 1800000
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+
+# Configuracoes do Swagger
+springdoc:
+  swagger-ui:
+    disable-swagger-default-url: true
+    path: /documentacao-api
+    operationsSorter: method
+    tagsSorter: alpha
+swagger:
+  username: ${SWAGGER_USERNAME}
+  password: ${SWAGGER_PASSWORD}

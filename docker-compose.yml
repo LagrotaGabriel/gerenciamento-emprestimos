@@ -20,6 +20,26 @@ services:
     networks:
       - app-network
 
+  # Microsserviços
+  devedor-service:
+    container_name: devedor-service
+    image: gabriellagrota/devedor-service:latest
+    restart: always
+    build: ./services/devedor-service
+    working_dir: /
+    environment:
+      TZ: America/Sao_Paulo
+      DB_URL: postgresql://devedor-db:5432/devedordb
+      DB_USERNAME: postgres
+      DB_PASSWORD: root
+    ports:
+      - "8082:8082"
+    command: mvn spring-boot:run
+    depends_on:
+      - devedor-db
+    networks:
+      - app-network
+
   # Bancos de Dados PostgreSQL
   auth-db:
     image: postgres:15
