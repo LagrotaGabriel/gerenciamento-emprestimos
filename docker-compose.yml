@@ -58,6 +58,25 @@ services:
     networks:
       - app-network
 
+  proposta-service:
+    container_name: proposta-service
+    image: gabriellagrota/proposta-service:latest
+    restart: always
+    build: ./services/proposta-service
+    working_dir: /
+    environment:
+      TZ: America/Sao_Paulo
+      DB_URL: postgresql://proposta-db:5432/propostadb
+      DB_USERNAME: postgres
+      DB_PASSWORD: root
+    ports:
+      - "8084:8084"
+    command: mvn spring-boot:run
+    depends_on:
+      - proposta-db
+    networks:
+      - app-network
+
   # Bancos de Dados PostgreSQL
   auth-db:
     image: postgres:15
