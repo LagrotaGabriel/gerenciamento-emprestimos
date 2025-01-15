@@ -3,26 +3,21 @@ name: Continous Integration with Github Actions
 on:
   push:
     branches:
-      - main
+      - master
   pull_request:
     branches:
-      - main
+      - master
 
 jobs:
-  build-and-push:
+  build:
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        service: [auth-service, credor-service, devedor-service, emprestimo-service, proposta-service]
 
     steps:
       # 1. Checkout do código
-      - name: Checkout Code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       # 2. Login no Docker Hub
-      - name: Login to Docker Hub
+      - name: Login to Docker hub
         uses: docker/login-action@v3.3.0
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
@@ -33,22 +28,24 @@ jobs:
         uses: actions/setup-java@v4
         with:
           java-version: '17'
-          distribution: 'temurin'
+          distribution: 'adopt'
           cache: maven
 
-      # 4. Build do microsserviço
-      - name: Build ${{ matrix.service }}
-        working-directory: ./services/${{ matrix.service }}
+      # 4. Tornar o mvnw executável
+      - name: Set execute permissions for mvnw
+        run: chmod +x ./mvnw
+
+      # 5. Build do projeto usando o Maven Wrapper
+      - name: Build application jar
         run: ./mvnw clean package
 
-      # 5. Build da imagem Docker do microsserviço
-      - name: Docker Compose Build ${{ matrix.service }}
-        working-directory: ./services/${{ matrix.service }}
-        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/${{ matrix.service }}:latest .
+      # 6. Build das imagens Docker com Docker Compose
+      - name: Docker compose build
+        run: docker compose build
 
-      # 6. Push da imagem para o Docker Hub
-      - name: Push Docker Image ${{ matrix.service }}
+      # 7. Push das imagens Docker para o Docker Hub
+      - name: Push do Docker hub Container Registry
         run: |
-          docker tag ${{ secrets.DOCKER_USERNAME }}/${{ matrix.service }}:latest ${{ secrets.DOCKER_USERNAME }}/${{ matrix.service }}:${{ github.run_id }}
-          docker push ${{ secrets.DOCKER_USERNAME }}/${{ matrix.service }}:${{ github.run_id }}
-          docker push ${{ secrets.DOCKER_USERNAME }}/${{ matrix.service }}:latest
+          docker tag ${{ secrets.DOCKER_USERNAME }}/estudos:latest ${{ secrets.DOCKER_USERNAME }}/estudos:${{ github.run_id }}
+          docker push ${{ secrets.DOCKER_USERNAME }}/estudos:${{ github.run_id }}
+          docker push ${{ secrets.DOCKER_USERNAME }}/estudos:latest
