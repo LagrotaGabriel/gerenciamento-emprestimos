@@ -20,7 +20,6 @@ services:
     networks:
       - app-network
 
-  # Microsserviços
   devedor-service:
     container_name: devedor-service
     image: gabriellagrota/devedor-service:latest
@@ -37,6 +36,25 @@ services:
     command: mvn spring-boot:run
     depends_on:
       - devedor-db
+    networks:
+      - app-network
+
+  emprestimo-service:
+    container_name: emprestimo-service
+    image: gabriellagrota/emprestimo-service:latest
+    restart: always
+    build: ./services/emprestimo-service
+    working_dir: /
+    environment:
+      TZ: America/Sao_Paulo
+      DB_URL: postgresql://emprestimo-db:5432/emprestimodb
+      DB_USERNAME: postgres
+      DB_PASSWORD: root
+    ports:
+      - "8083:8083"
+    command: mvn spring-boot:run
+    depends_on:
+      - emprestimo-db
     networks:
       - app-network
 
