@@ -9,8 +9,12 @@ on:
       - main
 
 jobs:
-  build:
+  build-and-push:
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        service: [auth-service, credor-service, devedor-service, emprestimo-service, proposta-service]
 
     steps:
       # 1. Checkout do código
@@ -36,16 +40,18 @@ jobs:
         run: chmod +x ./mvnw
 
       # 5. Build do projeto usando o Maven Wrapper
-      - name: Build application jar
+      - name: Build ${{ matrix.service }}
+        working-directory: ./services/${{ matrix.service }}
         run: ./mvnw clean package
 
       # 6. Build das imagens Docker com Docker Compose
-      - name: Docker compose build
-        run: docker compose build
+      - name: Docker Compose Build ${{ matrix.service }}
+        working-directory: ./services/${{ matrix.service }}
+        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/${{ matrix.service }}:latest .
 
       # 7. Push das imagens Docker para o Docker Hub
-      - name: Push do Docker hub Container Registry
+      - name: Push Docker Image ${{ matrix.service }}
         run: |
-          docker tag ${{ secrets.DOCKER_USERNAME }}/estudos:latest ${{ secrets.DOCKER_USERNAME }}/estudos:${{ github.run_id }}
-          docker push ${{ secrets.DOCKER_USERNAME }}/estudos:${{ github.run_id }}
-          docker push ${{ secrets.DOCKER_USERNAME }}/estudos:latest
+          docker tag ${{ secrets.DOCKER_USERNAME }}/${{ matrix.service }}:latest ${{ secrets.DOCKER_USERNAME }}/${{ matrix.service }}:${{ github.run_id }}
+          docker push ${{ secrets.DOCKER_USERNAME }}/${{ matrix.service }}:${{ github.run_id }}
+          docker push ${{ secrets.DOCKER_USERNAME }}/${{ matrix.service }}:latest
