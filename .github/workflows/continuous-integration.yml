@@ -36,7 +36,8 @@ jobs:
           cache: maven
 
       # 4. Tornar o mvnw executável
-      - name: Set execute permissions for mvnw
+      - name: Set execute permissions for mvnw in ${{ matrix.service }}
+        working-directory: ./services/${{ matrix.service }}
         run: chmod +x ./mvnw
 
       # 5. Build do projeto usando o Maven Wrapper
