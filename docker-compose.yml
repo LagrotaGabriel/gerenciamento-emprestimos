@@ -77,6 +77,25 @@ services:
     networks:
       - app-network
 
+  auth-service:
+    container_name: auth-service
+    image: gabriellagrota/auth-service:latest
+    restart: always
+    build: ./services/auth-service
+    working_dir: /
+    environment:
+      TZ: America/Sao_Paulo
+      DB_URL: postgresql://auth-db:5432/authdb
+      DB_USERNAME: postgres
+      DB_PASSWORD: root
+    ports:
+      - "8085:8085"
+    command: mvn spring-boot:run
+    depends_on:
+      - auth-db
+    networks:
+      - app-network
+
   # Bancos de Dados PostgreSQL
   auth-db:
     image: postgres:15
