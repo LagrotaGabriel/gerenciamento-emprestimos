@@ -33,3 +33,11 @@ build/
 
 ### VS Code ###
 .vscode/
+/compiler.xml
+/encodings.xml
+/jarRepositories.xml
+/misc.xml
+/modules.xml
+/inspectionProfiles/Project_Default.xml
+/vcs.xml
+/workspace.xml
