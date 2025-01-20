@@ -41,11 +41,11 @@ public class CredorEntity {
     private String nome;
 
     @Comment("Cpf do credor")
-    @Column(name = "str_cpf_crd", nullable = false, updatable = false, length = 14)
+    @Column(name = "str_cpf_crd", nullable = false, updatable = false, unique = true, length = 14)
     private String cpf;
 
     @Comment("E-mail do credor")
-    @Column(name = "eml_email_crd", nullable = false, length = 60)
+    @Column(name = "eml_email_crd", nullable = false, unique = true, length = 60)
     private String email;
 
     @Comment("Exibe saldo disponível")
