@@ -1,4 +1,4 @@
-package emprestimos.com.credor_service.exception.models;
+package emprestimos.com.credor.exception.models;
 
 import lombok.*;
 

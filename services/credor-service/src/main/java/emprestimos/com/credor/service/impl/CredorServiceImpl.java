@@ -1,11 +1,11 @@
-package emprestimos.com.credor_service.service.impl;
+package emprestimos.com.credor.service.impl;
 
-import emprestimos.com.credor_service.models.CredorEntity;
-import emprestimos.com.credor_service.models.dto.request.CredorRequest;
-import emprestimos.com.credor_service.models.dto.response.CredorResponse;
-import emprestimos.com.credor_service.repository.CredorRepository;
-import emprestimos.com.credor_service.service.CredorService;
-import emprestimos.com.credor_service.service.mapper.CredorMapper;
+import emprestimos.com.credor.models.CredorEntity;
+import emprestimos.com.credor.models.dto.request.CredorRequest;
+import emprestimos.com.credor.models.dto.response.CredorResponse;
+import emprestimos.com.credor.repository.CredorRepository;
+import emprestimos.com.credor.service.CredorService;
+import emprestimos.com.credor.service.mapper.CredorMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

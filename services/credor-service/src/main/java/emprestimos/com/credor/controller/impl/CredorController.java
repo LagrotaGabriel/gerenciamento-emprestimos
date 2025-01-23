@@ -1,9 +1,9 @@
-package emprestimos.com.credor_service.controller.impl;
+package emprestimos.com.credor.controller.impl;
 
-import emprestimos.com.credor_service.controller.CredorSwaggerController;
-import emprestimos.com.credor_service.models.dto.request.CredorRequest;
-import emprestimos.com.credor_service.models.dto.response.CredorResponse;
-import emprestimos.com.credor_service.service.CredorService;
+import emprestimos.com.credor.controller.CredorSwaggerController;
+import emprestimos.com.credor.models.dto.request.CredorRequest;
+import emprestimos.com.credor.models.dto.response.CredorResponse;
+import emprestimos.com.credor.service.CredorService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -1,4 +1,4 @@
-package emprestimos.com.credor_service.models.dto.request;
+package emprestimos.com.credor.models.dto.request;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;

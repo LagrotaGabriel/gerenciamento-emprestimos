@@ -1,4 +1,4 @@
-package emprestimos.com.credor_service.exception.handler;
+package emprestimos.com.credor.exception.handler;
 
 import jakarta.annotation.Nonnull;
 import jakarta.validation.ConstraintViolation;

@@ -1,4 +1,4 @@
-package emprestimos.com.credor_service.models.dto.response;
+package emprestimos.com.credor.models.dto.response;
 
 import java.util.UUID;
 

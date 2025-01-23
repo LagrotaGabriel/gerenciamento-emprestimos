@@ -1,7 +1,7 @@
-package emprestimos.com.credor_service.controller;
+package emprestimos.com.credor.controller;
 
-import emprestimos.com.credor_service.models.dto.request.CredorRequest;
-import emprestimos.com.credor_service.models.dto.response.CredorResponse;
+import emprestimos.com.credor.models.dto.request.CredorRequest;
+import emprestimos.com.credor.models.dto.response.CredorResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;

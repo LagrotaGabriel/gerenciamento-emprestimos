@@ -1,4 +1,4 @@
-package emprestimos.com.credor_service;
+package emprestimos.com.credor;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
