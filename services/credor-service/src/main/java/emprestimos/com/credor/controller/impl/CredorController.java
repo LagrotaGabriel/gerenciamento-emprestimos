@@ -3,10 +3,11 @@ package emprestimos.com.credor.controller.impl;
 import emprestimos.com.credor.controller.CredorSwaggerController;
 import emprestimos.com.credor.models.dto.request.CredorRequest;
 import emprestimos.com.credor.models.dto.response.CredorResponse;
-import emprestimos.com.credor.service.CredorService;
+import emprestimos.com.credor.service.core.CredorService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,6 +32,7 @@ public class CredorController implements CredorSwaggerController {
     @PostMapping
     public ResponseEntity<CredorResponse> criaNovo(@Valid @RequestBody CredorRequest credorRequest) {
         log.info("Endpoint responsável pela de criação de novo credor acessado");
-        return ResponseEntity.ok().body(credorService.criaNovo(credorRequest));
+        log.debug("credorRequest: {}", credorRequest);
+        return ResponseEntity.status(HttpStatus.CREATED).body(credorService.criaNovo(credorRequest));
     }
 }
