@@ -1,4 +1,4 @@
-package emprestimos.com.credor.models;
+package emprestimos.com.credor.models.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
