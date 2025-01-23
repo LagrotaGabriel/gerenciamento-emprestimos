@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class CredorServiceApplication {
+public class CredorApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(CredorServiceApplication.class, args);
+		SpringApplication.run(CredorApplication.class, args);
 	}
 
 }
