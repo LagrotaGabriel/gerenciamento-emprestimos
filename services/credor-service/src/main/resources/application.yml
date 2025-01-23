@@ -7,6 +7,13 @@ spring:
 
   # Configuracoes de banco de dados
   jpa:
+    show-sql: false
+    generate-ddl: true
+    hibernate.ddl-auto: update
+    properties:
+      hibernate:
+        generate_statistics: true
+        format_sql: true
   datasource:
     url: jdbc:${DB_URL}?useTimezone=true&serverTimezone=UTC&useSSL=false
     username: ${DB_USERNAME}
