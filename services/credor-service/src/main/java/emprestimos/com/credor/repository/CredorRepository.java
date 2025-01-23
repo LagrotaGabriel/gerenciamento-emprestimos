@@ -1,6 +1,6 @@
 package emprestimos.com.credor.repository;
 
-import emprestimos.com.credor.models.CredorEntity;
+import emprestimos.com.credor.models.entity.CredorEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

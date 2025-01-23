@@ -1,6 +1,6 @@
 package emprestimos.com.credor.service.mapper;
 
-import emprestimos.com.credor.models.CredorEntity;
+import emprestimos.com.credor.models.entity.CredorEntity;
 import emprestimos.com.credor.models.dto.request.CredorRequest;
 import emprestimos.com.credor.models.dto.response.CredorResponse;
 import org.mapstruct.Mapper;

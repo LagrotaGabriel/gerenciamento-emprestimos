@@ -1,7 +1,7 @@
 package emprestimos.com.credor.service.core.impl;
 
 import emprestimos.com.credor.exception.models.InternalErrorException;
-import emprestimos.com.credor.models.CredorEntity;
+import emprestimos.com.credor.models.entity.CredorEntity;
 import emprestimos.com.credor.models.dto.request.CredorRequest;
 import emprestimos.com.credor.models.dto.response.CredorResponse;
 import emprestimos.com.credor.repository.CredorRepository;
