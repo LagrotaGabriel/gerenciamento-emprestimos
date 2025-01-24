@@ -5,9 +5,8 @@ import lombok.*;
 import java.time.LocalDateTime;
 
 @Getter
-@Setter
 @Builder
-@NoArgsConstructor
+@ToString
 @AllArgsConstructor
 public class StandartError {
     private LocalDateTime localDateTime;
