@@ -1,13 +1,15 @@
 package emprestimos.com.credor.service.core.impl;
 
 import emprestimos.com.credor.exception.models.InternalErrorException;
-import emprestimos.com.credor.models.entity.CredorEntity;
+import emprestimos.com.credor.exception.models.ServiceUnavailableException;
 import emprestimos.com.credor.models.dto.request.CredorRequest;
 import emprestimos.com.credor.models.dto.response.CredorResponse;
+import emprestimos.com.credor.models.entity.CredorEntity;
 import emprestimos.com.credor.repository.CredorRepository;
 import emprestimos.com.credor.service.core.CredorService;
 import emprestimos.com.credor.service.mapper.CredorMapper;
 import emprestimos.com.credor.service.validator.CredorValidatorService;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -35,6 +37,7 @@ public class CredorServiceImpl implements CredorService {
 
     @Override
     @Transactional
+    @CircuitBreaker(name = "criaCredor", fallbackMethod = "circuitBreakerFallbackResponse")
     public CredorResponse criaNovo(CredorRequest credorRequest) {
 
         validatorService.validaCredorRequest(credorRequest.cpf(), credorRequest.email());
@@ -54,5 +57,10 @@ public class CredorServiceImpl implements CredorService {
             log.error("Ocorreu um erro de integridade de dados ao criar um novo credor: {}", dataIntegrityViolationException.getMessage());
             throw new InternalErrorException("Ocorreu um erro inesperado ao tentar criar um novo credor: " + dataIntegrityViolationException.getMessage());
         }
+    }
+
+    public CredorResponse circuitBreakerFallbackResponse(Throwable throwable) {
+        log.error("Circuit breaker acionado: {}", throwable.getMessage());
+        throw new ServiceUnavailableException("Serviço temporariamente indisponível. Tente novamente mais tarde.");
     }
 }

@@ -30,7 +30,20 @@ management:
   endpoints:
     web:
       exposure:
-        include: health
+        include: health, metrics, resilience4j
+  endpoint:
+    health:
+      show-details: always
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      criaCredor:
+        slidingWindowSize: 5
+        failureRateThreshold: 50
+        waitDurationInOpenState: 10s
+        permittedNumberOfCallsInHalfOpenState: 3
+        minimumNumberOfCalls: 5
 
 # Configuracoes do Swagger
 springdoc:
