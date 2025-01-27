@@ -1,5 +1,6 @@
 package emprestimos.com.credor.exception.handler;
 
+import emprestimos.com.credor.exception.models.ServiceUnavailableException;
 import emprestimos.com.credor.exception.models.StandartError;
 import emprestimos.com.credor.service.validator.exceptions.CpfDoCredorJaExisteException;
 import emprestimos.com.credor.service.validator.exceptions.EmailDoCredorJaExisteException;
@@ -47,6 +48,20 @@ public class ExceptionHandler extends ResponseEntityExceptionHandler {
                 .build();
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(standartError);
+    }
+
+    @org.springframework.web.bind.annotation.ExceptionHandler(ServiceUnavailableException.class)
+    public ResponseEntity<StandartError> serviceUnavailableExceptionHandler(HttpServletRequest req,
+                                                                            ServiceUnavailableException serviceUnavailableException) {
+
+        StandartError standartError = StandartError.builder()
+                .localDateTime(LocalDateTime.now())
+                .status(503)
+                .error(serviceUnavailableException.getMessage())
+                .path(req.getRequestURI())
+                .build();
+
+        return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body(standartError);
     }
 
     @org.springframework.web.bind.annotation.ExceptionHandler(ConstraintViolationException.class)
